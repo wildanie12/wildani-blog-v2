@@ -36,7 +36,7 @@ const navbarData: NavbarItem[] = [
 
 export default function Header(): JSX.Element {
   return (
-    <div className="w-full flex justify-center items-center dark:bg-wdDark">
+    <div className="w-full justify-center items-center dark:bg-wdDark hidden lg:flex">
       <div className="container flex gap-4 justify-between py-4">
         <Brand />
         <Navbar items={navbarData} />
