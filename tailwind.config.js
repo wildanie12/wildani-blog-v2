@@ -10,10 +10,12 @@ module.exports = {
       },
       colors: {
         wdSky: "#31afd4",
+        wdDarkSky: "#82D7FF",
         wdBlue: "#08415c",
         wdYellow: "#f7b32b",
         wdRed: "#ff1053",
-        wdDark: "#0e171b"
+        wdDark: "#0e171b",
+        wdDark2: "#253035"
       }
     }
   },
