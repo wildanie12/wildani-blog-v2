@@ -34,8 +34,8 @@ export const NavbarLight = ({ items = [] }: NavbarProps): JSX.Element => {
         <Link
           key={i}
           href={item.link}
-          className={`flex gap-2 justify-between px-3 py-2 dark:text-gray-300 ${
-            item.active ? "bg-wdRed text-white dark:text-white rounded-lg shadow-lg" : "text-gray-600"
+          className={`flex gap-2 justify-between px-3 py-2 ${
+            item.active ? "bg-wdRed text-white dark:text-white rounded-lg shadow-lg" : "text-gray-600 dark:text-gray-300"
           }`}
         >
           {item.icon && item.icon}
