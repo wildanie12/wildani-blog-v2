@@ -34,9 +34,13 @@ const navbarData: NavbarItem[] = [
   }
 ]
 
-export default function Header(): JSX.Element {
+type HeaderProps = {
+  className?: string
+}
+
+export default function Header({ className = "" }: HeaderProps): JSX.Element {
   return (
-    <div className="w-full justify-center items-center dark:bg-wdDark hidden lg:flex">
+    <div className={`w-full justify-center items-center dark:bg-wdDark hidden lg:flex ${className}`}>
       <div className="container flex gap-4 justify-between py-4">
         <Brand />
         <Navbar items={navbarData} />
