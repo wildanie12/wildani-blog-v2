@@ -17,7 +17,9 @@ module.exports = {
     extend: {
       fontFamily: {
         podkova: ["Podkova", "sans-serif"],
-        poppins: ["Poppins", "sand-serif"]
+        poppins: ["Poppins", "sans-serif"],
+        openSans: ["Open Sans", "sans-serif"],
+        firaCode: ["Fira Code", "monospace"]
       },
       colors: {
         wdSky: "#31afd4",
