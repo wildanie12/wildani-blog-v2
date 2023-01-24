@@ -29,6 +29,9 @@ module.exports = {
         wdRed: "#ff1053",
         wdDark: "#0e171b",
         wdDark2: "#253035"
+      },
+      listStyleType: {
+        lowerAlpha: "lower-alpha"
       }
     }
   },
