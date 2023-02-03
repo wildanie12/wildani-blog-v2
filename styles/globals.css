@@ -15,4 +15,9 @@ body {
 body {
   @apply dark:bg-wdDark bg-white overflow-x-hidden overflow-y-auto;
 }
+
+.widget-title {
+  @apply uppercase font-semibold text-center font-poppins text-gray-600 tracking-widest w-full block dark:text-gray-400;
+}
+
 }
