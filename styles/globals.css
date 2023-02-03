@@ -11,4 +11,8 @@ html,
 body {
   @apply scroll-smooth !important;
 }
+
+body {
+  @apply dark:bg-wdDark bg-white overflow-x-hidden overflow-y-auto;
+}
 }
