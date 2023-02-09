@@ -1,13 +1,34 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import ThemeContextProvider from '../providers/ThemeProvider'
+import "../styles/globals.css"
+import type { AppProps } from "next/app"
+import ThemeContextProvider from "../providers/ThemeProvider"
+import { useEffect } from "react"
 
-function MyApp({ Component, pageProps }: AppProps) {
-    return (
-        <ThemeContextProvider>
-            <Component {...pageProps} />
-        </ThemeContextProvider>
-    )
+import NProgress from "nprogress"
+import "nprogress/nprogress.css"
+
+function MyApp({ Component, pageProps, router }: AppProps) {
+  useEffect(() => {
+    const handleRouteStart = () => {
+      NProgress.start()
+    }
+    const handleRouteDone = () => NProgress.done()
+
+    router.events.on("routeChangeStart", handleRouteStart)
+    router.events.on("routeChangeComplete", handleRouteDone)
+    router.events.on("routeChangeError", handleRouteDone)
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteStart)
+      router.events.off("routeChangeComplete", handleRouteDone)
+      router.events.off("routeChangeError", handleRouteDone)
+    }
+  }, [])
+
+  return (
+    <ThemeContextProvider>
+      <Component {...pageProps} />
+    </ThemeContextProvider>
+  )
 }
 
 export default MyApp
