@@ -180,3 +180,36 @@ export const GET_TAGS = gql`
   }
 `
 
+export const GET_CATEGORIES = gql`
+  query getCategories {
+    categories {
+      data {
+        id
+        attributes {
+          title
+          # body,
+          slug
+          banner {
+            data {
+              id
+              attributes {
+                name
+                url
+              }
+            }
+          }
+          createdAt
+          updatedAt
+        }
+      }
+      meta {
+        pagination {
+          total
+          page
+          pageSize
+          pageCount
+        }
+      }
+    }
+  }
+`
