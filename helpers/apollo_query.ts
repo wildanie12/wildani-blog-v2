@@ -213,3 +213,38 @@ export const GET_CATEGORIES = gql`
     }
   }
 `
+
+export const GET_CATEGORY_BY_SLUG = gql`
+  query getCategoriesBySlug($slug: String) {
+    categories(filters: { slug: { eq: $slug } }) {
+      data {
+        id
+        attributes {
+          title
+          # body,
+          slug
+          banner {
+            data {
+              id
+              attributes {
+                name
+                url
+              }
+            }
+          }
+          createdAt
+          updatedAt
+        }
+      }
+      meta {
+        pagination {
+          total
+          page
+          pageSize
+          pageCount
+        }
+      }
+    }
+  }
+`
+
