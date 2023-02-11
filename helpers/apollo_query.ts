@@ -162,3 +162,21 @@ export const GET_POSTS_BY_CATEGORY = gql`
   }
 `
 
+export const GET_TAGS = gql`
+  query getTags {
+    tags {
+      __typename
+      data {
+        id
+        attributes {
+          name
+          icon_svg
+          slug
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`
+
