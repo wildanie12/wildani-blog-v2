@@ -23,3 +23,14 @@ type IPost = {
     publishedAt: string
   }
 }
+
+type IPostTableOfContent = {
+  title: string
+  url: string
+  read_time?: number
+  sublist?: {
+    title: string
+    url: string
+    read_time?: number
+  }[]
+}
