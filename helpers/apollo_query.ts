@@ -248,3 +248,55 @@ export const GET_CATEGORY_BY_SLUG = gql`
   }
 `
 
+export const GET_FEATURED_POSTS = gql`
+  query getFeaturedPosts {
+    featuredPost {
+      data {
+        id
+        attributes {
+          posts {
+            data {
+              id
+              attributes {
+                title
+                read_time
+                banner {
+                  data {
+                    id
+                    attributes {
+                      name
+                      url
+                    }
+                  }
+                }
+                excerpt
+                slug
+                category {
+                  data {
+                    id
+                    attributes {
+                      title
+                      slug
+                    }
+                  }
+                }
+                tags {
+                  data {
+                    id
+                    attributes {
+                      name
+                      slug
+                    }
+                  }
+                }
+                createdAt
+                updatedAt
+                publishedAt
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
