@@ -232,6 +232,24 @@ export const GET_TAGS = gql`
   }
 `
 
+export const GET_TAGS_BY_SLUG = gql`
+  query getTagsBySlug($slug: String) {
+    tags(filters: { slug: { eq: $slug } }) {
+      data {
+        id
+        attributes {
+          name
+          description
+          icon_svg
+          slug
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`
+
 export const GET_CATEGORIES = gql`
   query getCategories {
     categories {
