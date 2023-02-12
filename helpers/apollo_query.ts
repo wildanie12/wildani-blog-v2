@@ -370,3 +370,28 @@ export const GET_FEATURED_POSTS = gql`
     }
   }
 `
+
+export const GET_FEATURED_TAGS = gql`
+  query getFeaturedTags {
+    featuredTag {
+      data {
+        id
+        attributes {
+          tags {
+            data {
+              id
+              attributes {
+                name
+                description
+                icon_svg
+                slug
+                createdAt
+                updatedAt
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
