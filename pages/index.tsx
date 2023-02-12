@@ -8,11 +8,10 @@ import { ThemeContext } from "../providers/ThemeProvider"
 
 import { navbarData } from "../constants/menu"
 import Footer from "../components/footer"
-import SideTag from "../components/sidebar/SideTag"
-import { sideTags } from "../constants/sidetags"
+import SideTag, { SideTagData } from "../components/sidebar/SideTag"
 import Categories from "../components/sidebar/Categories"
 import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GET_CATEGORIES, GET_FEATURED_POSTS, GET_LATEST_POST, GET_TAGS } from "../helpers/apollo_query"
+import { GET_CATEGORIES, GET_FEATURED_POSTS, GET_FEATURED_TAGS, GET_LATEST_POST, GET_TAGS } from "../helpers/apollo_query"
 import Head from "next/head"
 
 type HomeProps = {
@@ -20,10 +19,20 @@ type HomeProps = {
   tags: ITag[]
   categories: ICategory[]
   featuredPosts: IPost[]
+  featuredTags: ITag[]
 }
 
-const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = [] }) => {
+const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = [], featuredTags = [] }) => {
   const { isDark } = useContext(ThemeContext)
+
+  let sideTags: SideTagData[] = []
+  featuredTags.map((tag) => {
+    sideTags.push({
+      icon: <img src={`${process.env.NEXT_PUBLIC_ASSET_URL}${tag.attributes.icon_svg}`}></img>,
+      link: `/tags/${tag.attributes.slug}`,
+      name: tag.attributes.name
+    })
+  })
 
   return (
     <>
@@ -101,7 +110,7 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
 
           <div className="container px-4 mt-4 mb-8 lg:block">
             <div className="hidden w-full lg:flex justify-between items-start gap-6 mb-6  ">
-              <Sidebar categories={categories} tags={tags} className="w-1/3" />
+              <Sidebar categories={categories} featuredTags={featuredTags} tags={tags} className="w-1/3" />
               <Posts className="w-2/3" posts={posts} />
             </div>
             <div className="lg:hidden flex flex-col gap-4">
@@ -151,12 +160,19 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   })
   const featuredPosts = res4.data.featuredPost.data.attributes.posts.data as IPost[]
 
+  // fetch featured tags
+  const res5 = await client.query({
+    query: GET_FEATURED_TAGS
+  })
+  const featuredTags = res5.data.featuredTag.data.attributes.tags.data as ITag[]
+
   return {
     props: {
       posts,
       tags,
       categories,
-      featuredPosts
+      featuredPosts,
+      featuredTags
     }
   }
 }

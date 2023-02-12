@@ -7,11 +7,12 @@ type SidebarProps = {
   className?: string
   tags: ITag[]
   categories: ICategory[]
+  featuredTags: ITag[]
 }
 
-export default function Sidebar({ className, tags, categories }: SidebarProps): JSX.Element {
+export default function Sidebar({ className, tags, categories, featuredTags }: SidebarProps): JSX.Element {
   let sideTags: SideTagData[] = []
-  tags.slice(0, 5).map((tag) => {
+  featuredTags.map((tag) => {
     sideTags.push({
       icon: <img src={`${process.env.NEXT_PUBLIC_ASSET_URL}${tag.attributes.icon_svg}`}></img>,
       link: `/tags/${tag.attributes.slug}`,
