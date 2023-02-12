@@ -160,6 +160,60 @@ export const GET_POSTS_BY_CATEGORY = gql`
   }
 `
 
+export const GET_POSTS_BY_TAG = gql`
+  query getPostsByTag($slug: String) {
+    posts(filters: { tags: { slug: { eq: $slug } } }, sort: ["publishedAt:desc"]) {
+      data {
+        id
+        attributes {
+          title
+          read_time
+          banner {
+            data {
+              id
+              attributes {
+                name
+                url
+              }
+            }
+          }
+          excerpt
+          seo_description
+          slug
+          category {
+            data {
+              id
+              attributes {
+                title
+              }
+            }
+          }
+          tags {
+            data {
+              id
+              attributes {
+                name
+                icon_svg
+              }
+            }
+          }
+          createdAt
+          updatedAt
+          publishedAt
+        }
+      }
+      meta {
+        pagination {
+          total
+          page
+          pageSize
+          pageCount
+        }
+      }
+    }
+  }
+`
+
 export const GET_TAGS = gql`
   query getTags {
     tags {
