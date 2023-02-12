@@ -2,7 +2,7 @@ import { gql } from "@apollo/client"
 
 export const GET_LATEST_POST = gql`
   query latestPosts($page: Int, $pageSize: Int) {
-    posts(pagination: { page: $page, pageSize: $pageSize }) {
+    posts(pagination: { page: $page, pageSize: $pageSize }, sort: ["publishedAt:desc"]) {
       data {
         id
         attributes {
@@ -108,7 +108,7 @@ export const GET_SINGLE_POST = gql`
 
 export const GET_POSTS_BY_CATEGORY = gql`
   query getPostsByCategory($slug: String) {
-    posts(filters: { category: { slug: { eq: $slug } } }) {
+    posts(filters: { category: { slug: { eq: $slug } } }, sort: ["publishedAt:desc"]) {
       data {
         id
         attributes {
@@ -124,8 +124,6 @@ export const GET_POSTS_BY_CATEGORY = gql`
             }
           }
           excerpt
-          body
-          table_of_contents
           seo_description
           slug
           category {
