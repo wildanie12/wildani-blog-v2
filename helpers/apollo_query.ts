@@ -408,3 +408,16 @@ export const GET_CATEGORY_SLUGS = gql`
     }
   }
 `
+
+export const GET_POST_SLUGS = gql`
+  query getPostSlugs {
+    posts(sort: ["createdAt:desc"]) {
+      data {
+        id
+        attributes {
+          slug
+        }
+      }
+    }
+  }
+`
