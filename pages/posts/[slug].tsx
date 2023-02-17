@@ -1,4 +1,4 @@
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/image"
 import Footer from "../../components/footer"
 import Header from "../../components/header"
@@ -11,7 +11,7 @@ import { navbarData } from "../../constants/menu"
 import { Epilogue } from "../../components/post_detail"
 import RelatedPost from "../../components/post_detail/RelatedPost"
 import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GET_POSTS_BY_CATEGORY, GET_SINGLE_POST } from "../../helpers/apollo_query"
+import { GET_POSTS_BY_CATEGORY, GET_POST_SLUGS, GET_SINGLE_POST } from "../../helpers/apollo_query"
 import moment from "moment"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Head from "next/head"
@@ -201,7 +201,28 @@ export default function PostDetail({ post, parsedBody, parsedEpilogue, url, rela
   )
 }
 
-export const getServerSideProps: GetServerSideProps<PostDetailProps> = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  // define apollo graphql client
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: process.env.CMS_API_URL
+  })
+
+  // get post slugs
+  const res = await client.query({
+    query: GET_POST_SLUGS
+  })
+
+  const posts = res.data.posts.data as IPost[]
+  const paths = posts.map((post) => ({ params: { slug: post.attributes.slug } }))
+
+  return {
+    fallback: false,
+    paths: paths
+  }
+}
+
+export const getStaticProps: GetStaticProps<PostDetailProps> = async (context) => {
   // fetch post by slug
   const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -210,7 +231,7 @@ export const getServerSideProps: GetServerSideProps<PostDetailProps> = async (co
   const res = await client.query({
     query: GET_SINGLE_POST,
     variables: {
-      slug: context.query.slug
+      slug: context.params!.slug
     }
   })
   const posts = res.data.posts.data as IPost[]
@@ -257,7 +278,7 @@ export const getServerSideProps: GetServerSideProps<PostDetailProps> = async (co
       post: post,
       parsedBody: parsed,
       parsedEpilogue: parsedEpilogue,
-      url: context.req.headers.host! + context.resolvedUrl,
+      url: process.env.NEXT_PUBLIC_HOST + "/posts/" + post.attributes.slug,
       relatedPosts: res2.data.posts.data as IPost[]
     }
   }
