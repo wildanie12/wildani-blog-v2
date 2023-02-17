@@ -13,6 +13,7 @@ import Categories from "../components/sidebar/Categories"
 import { ApolloClient, InMemoryCache } from "@apollo/client"
 import { GET_CATEGORIES, GET_FEATURED_POSTS, GET_FEATURED_TAGS, GET_LATEST_POST, GET_TAGS } from "../helpers/apollo_query"
 import Head from "next/head"
+import Image from "next/image"
 
 type HomeProps = {
   posts: IPost[]
@@ -28,7 +29,7 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
   let sideTags: SideTagData[] = []
   featuredTags.map((tag) => {
     sideTags.push({
-      icon: <img src={`${process.env.NEXT_PUBLIC_ASSET_URL}${tag.attributes.icon_svg}`}></img>,
+      icon: <Image alt="" fill={true} src={`${process.env.NEXT_PUBLIC_ASSET_URL}${tag.attributes.icon_svg}`}></Image>,
       link: `/tags/${tag.attributes.slug}`,
       name: tag.attributes.name
     })
