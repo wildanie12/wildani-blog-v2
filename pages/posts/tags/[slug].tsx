@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps } from "next"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 import { useRouter } from "next/router"
 import Footer from "../../../components/footer"
 import Header from "../../../components/header"
@@ -48,7 +48,20 @@ export default function PostByCategory({ message }: PostDetailProps): JSX.Elemen
   )
 }
 
-export const getServerSideProps: GetServerSideProps<PostDetailProps> = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    fallback: false,
+    paths: [
+      {
+        params: {
+          slug: "hello"
+        }
+      }
+    ]
+  }
+}
+
+export const getStaticProps: GetStaticProps<PostDetailProps> = async (context) => {
   return {
     props: {
       message: "hello moms"
