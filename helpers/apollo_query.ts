@@ -395,3 +395,16 @@ export const GET_FEATURED_TAGS = gql`
     }
   }
 `
+
+export const GET_CATEGORY_SLUGS = gql`
+  query getCategorySlugs {
+    categories(sort: ["createdAt:desc"]) {
+      data {
+        id
+        attributes {
+          slug
+        }
+      }
+    }
+  }
+`
