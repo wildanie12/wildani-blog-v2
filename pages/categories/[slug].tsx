@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GetServerSideProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Head from "next/head"
 import Footer from "../../components/footer"
 import Header from "../../components/header"
@@ -8,7 +8,7 @@ import SideTag, { SideTagData } from "../../components/sidebar/SideTag"
 import { Tag } from "../../components/sidebar/Tags"
 
 import { navbarData } from "../../constants/menu"
-import { GET_CATEGORY_BY_SLUG, GET_POSTS_BY_CATEGORY, GET_TAGS } from "../../helpers/apollo_query"
+import { GET_CATEGORY_BY_SLUG, GET_CATEGORY_SLUGS, GET_POSTS_BY_CATEGORY, GET_TAGS } from "../../helpers/apollo_query"
 
 type CategoryPostsProps = {
   posts: IPost[]
@@ -58,7 +58,29 @@ export default function PostByCategory({ posts = [], category, tags = [] }: Cate
   )
 }
 
-export const getServerSideProps: GetServerSideProps<CategoryPostsProps> = async (context) => {
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: process.env.CMS_API_URL
+  })
+
+  // fetch categories
+  const res = await client.query({
+    query: GET_CATEGORY_SLUGS
+  })
+  const categories = res.data.categories.data as ICategory[]
+  console.log(categories)
+
+  const paths = categories.map((category) => ({ params: { slug: category.attributes.slug } }))
+  console.log("params", paths)
+
+  return {
+    fallback: false,
+    paths
+  }
+}
+
+export const getStaticProps: GetStaticProps<CategoryPostsProps> = async (context) => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     uri: process.env.CMS_API_URL
@@ -68,7 +90,7 @@ export const getServerSideProps: GetServerSideProps<CategoryPostsProps> = async 
   const res = await client.query({
     query: GET_CATEGORY_BY_SLUG,
     variables: {
-      slug: context.query.slug
+      slug: context.params!.slug
     }
   })
   const categories = res.data.categories.data as ICategory[]
@@ -83,7 +105,7 @@ export const getServerSideProps: GetServerSideProps<CategoryPostsProps> = async 
   const res2 = await client.query({
     query: GET_POSTS_BY_CATEGORY,
     variables: {
-      slug: context.query.slug
+      slug: context.params!.slug
     }
   })
   const posts = res2.data.posts.data as IPost[]
