@@ -31,7 +31,7 @@ export default function PostByCategory({ posts = [], category, tags = [] }: Cate
       <Head>
         <title>Post with category {category.attributes.title} - Wildani Blog</title>
       </Head>
-      <div className="w-full pb-6">
+      <div className="w-full pb-6 overflow-x-hidden">
         <Header navbarData={navbarData} />
         <div className="relative pt-8 w-full">
           <div className="absolute top-0 w-full h-[50vh] bg-gradient-to-b from-gray-600 to-transparent -z-50 opacity-10"></div>
