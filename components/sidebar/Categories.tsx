@@ -16,6 +16,7 @@ export default function Categories({ className, categories }: CategoryProps): JS
               {category.attributes.title}
             </div>
             <Image
+              className="opacity-50 group-hover:opacity-100"
               src={`${process.env.NEXT_PUBLIC_ASSET_URL}${category.attributes.banner?.data.attributes.url}`}
               fill={true}
               style={{ objectFit: "cover" }}

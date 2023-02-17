@@ -1,4 +1,3 @@
-import { tags } from "../../constants/tag"
 import Categories from "./Categories"
 import SideTag, { SideTagData } from "./SideTag"
 import Tags from "./Tags"
@@ -23,7 +22,7 @@ export default function Sidebar({ className, tags, categories, featuredTags }: S
   return (
     <div className={`flex gap-8 ${className}`}>
       <SideTag className="w-8 shrink-0 pt-8" tags={sideTags} />
-      <div className="flex-grow h-24 flex flex-col gap-4 bg-wdSky">
+      <div className="flex-grow h-24 flex flex-col gap-4">
         <Categories className="" categories={categories} />
         <Tags tags={tags} />
       </div>
