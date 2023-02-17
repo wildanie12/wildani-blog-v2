@@ -1,24 +1,30 @@
-import { CategoryData } from "../components/sidebar/Categories"
-
-export const categories: CategoryData[] = [
+export const categories: ICategory[] = [
   {
-    name: "Back-end",
-    image: "/sample/categories/backend.jpg",
-    link: "/categories/back-end"
+    id: 0,
+    attributes: {
+      title: "Back-end",
+      slug: "Back-end"
+    }
   },
   {
-    name: "Front-end",
-    image: "/sample/categories/frontend.jpg",
-    link: "/categories/front-end"
+    id: 0,
+    attributes: {
+      title: "Front-end",
+      slug: "Front-end"
+    }
   },
   {
-    name: "System Design",
-    image: "/sample/categories/system-design.jpg",
-    link: "/categories/system-design"
+    id: 0,
+    attributes: {
+      title: "System Design",
+      slug: "System Design"
+    }
   },
   {
-    name: "Internet of Things",
-    image: "/sample/categories/internet-of-things.jpg",
-    link: "/categories/internet-of-things"
+    id: 0,
+    attributes: {
+      title: "Internet of Things",
+      slug: "Internet of Things"
+    }
   }
 ]
