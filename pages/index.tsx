@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next"
+import type { GetStaticProps, NextPage } from "next"
 import { useContext } from "react"
 import Featured from "../components/featured"
 import Header from "../components/header"
@@ -127,7 +127,7 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
   )
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const client = new ApolloClient({
     uri: process.env.CMS_API_URL,
     cache: new InMemoryCache()
