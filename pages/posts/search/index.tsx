@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, useQuery } from "@apollo/client"
+import { ApolloClient, InMemoryCache, useLazyQuery, useQuery } from "@apollo/client"
 import { GetStaticProps, NextPage } from "next"
 import Head from "next/head"
 import Footer from "../../../components/footer"
@@ -11,6 +11,8 @@ import { GET_FEATURED_TAGS, SEARCH_POSTS } from "../../../helpers/apollo_query"
 
 import { useRouter } from "next/router"
 import Image from "next/image"
+import { useContext, useEffect, useState } from "react"
+import { SearchContext } from "../../../providers/SearchProvider"
 
 type SearchProps = {
   featuredTags?: ITag[]
@@ -18,6 +20,8 @@ type SearchProps = {
 }
 
 const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
+  const { search } = useContext(SearchContext)
+
   let sideTags: SideTagData[] = []
   featuredTags.map((tag) => {
     sideTags.push({
@@ -27,17 +31,21 @@ const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
     })
   })
 
-  // fetch posts query
   const router = useRouter()
-  const { loading, error, data } = useQuery(SEARCH_POSTS, {
-    variables: {
-      query: router.query.q
-    }
-  })
 
+  const [searchPosts, { loading, error, data }] = useLazyQuery(SEARCH_POSTS)
   if (typeof data?.posts?.data !== "undefined") {
     posts = data.posts.data as IPost[]
   }
+
+  useEffect(() => {
+    if (search) {
+      router.push(`/posts/search?q=${search}`, undefined, { shallow: true })
+      searchPosts({ variables: { query: search, page: 1, pageSize: 10 } })
+    } else {
+      if (router.query.q) searchPosts({ variables: { query: router.query.q, page: 1, pageSize: 10 } })
+    }
+  }, [search, router.query.q])
 
   return (
     <>
