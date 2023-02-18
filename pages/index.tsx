@@ -40,7 +40,7 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
       <Head>
         <title>Homepage - Wildani Blog</title>
       </Head>
-      <div className="w-full overflow-x-hidden">
+      <div className="w-full overflow-x-clip">
         <Header navbarData={navbarData} />
         <div className="relative pt-8 w-full pb-8">
           <div className="absolute top-0 w-full h-[50vh] bg-gradient-to-b from-gray-600 to-transparent -z-50 opacity-10"></div>

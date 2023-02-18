@@ -31,7 +31,7 @@ export default function PostByCategory({ posts = [], tag, featuredTags }: TagPos
       <Head>
         <title>Post with category {tag.attributes.name} - Wildani Blog</title>
       </Head>
-      <div className="w-full pb-6 overflow-x-hidden">
+      <div className="w-full pb-6 overflow-x-clip">
         <Header navbarData={navbarData} />
         <div className="relative pt-8 w-full">
           <div className="absolute top-0 w-full h-[50vh] bg-gradient-to-b from-gray-600 to-transparent -z-50 opacity-10"></div>

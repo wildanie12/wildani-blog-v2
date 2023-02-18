@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  @apply dark:bg-wdDark bg-white overflow-x-hidden overflow-y-auto;
+  @apply dark:bg-wdDark bg-white overflow-x-clip overflow-y-auto;
 }
 
 .widget-title {
