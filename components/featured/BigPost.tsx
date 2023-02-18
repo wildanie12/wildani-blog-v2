@@ -25,7 +25,9 @@ export default function BigPost({ className, post }: BigPostProps): JSX.Element 
             <div className="text-xs font-medium uppercase tracking-widest">{moment(post.attributes.createdAt).startOf("days").fromNow()}</div>
           </div>
           <h2 className="text-wdBlue text-2xl font-semibold dark:text-wdDarkSky">{post.attributes.title}</h2>
-          <p className="text-gray-500 dark:text-white">{post.attributes.excerpt}</p>
+          <p className="text-gray-500 dark:text-white">
+            {post.attributes.excerpt.length > 500 ? post.attributes.excerpt.slice(0, 500) + "..." : post.attributes.excerpt}
+          </p>
         </div>
         <div className="w-4 group-hover:w-0 my-2 ml-4 transition-all ease-out duration-200 shrink-0"></div>
       </div>
