@@ -434,3 +434,59 @@ export const GET_TAG_SLUGS = gql`
     }
   }
 `
+
+export const SEARCH_POSTS = gql`
+  query searchPost($query: String, $page: Int, $pageSize: Int) {
+    posts(pagination: { page: $page, pageSize: $pageSize }, filters: { title: { contains: $query } }, sort: ["publishedAt:desc"]) {
+      data {
+        id
+        attributes {
+          title
+          read_time
+          banner {
+            data {
+              id
+              attributes {
+                name
+                url
+              }
+            }
+          }
+          excerpt
+          body
+          table_of_contents
+          seo_description
+          slug
+          category {
+            data {
+              id
+              attributes {
+                title
+              }
+            }
+          }
+          tags {
+            data {
+              id
+              attributes {
+                name
+                icon_svg
+              }
+            }
+          }
+          createdAt
+          updatedAt
+          publishedAt
+        }
+      }
+      meta {
+        pagination {
+          total
+          page
+          pageSize
+          pageCount
+        }
+      }
+    }
+  }
+`
