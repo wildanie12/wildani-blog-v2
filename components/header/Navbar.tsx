@@ -41,7 +41,7 @@ export function NavbarDesktop({ items = [], className }: NavbarProps): JSX.Eleme
           className="w-0 flex-grow p-2 dark:bg-transparent text-xs font-medium border border-r-0 border-gray-400 dark:text-white rounded-l-full placeholder:font-poppins placeholder:text-xs placeholder:font-medium focus:outline-none"
           placeholder="Search..."
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => e.key == "Enter" && router.push(`/search?q=${searchQuery}`)}
+          onKeyDown={(e) => e.key == "Enter" && router.push(`/posts/search?q=${searchQuery}`)}
         />
         <div className="p-2 stroke-gray-400 rounded-r-full border-gray-400 border-l-0 border">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-4 h-4">
