@@ -8,17 +8,17 @@ import SideTag, { SideTagData } from "../../components/sidebar/SideTag"
 import { Tag } from "../../components/sidebar/Tags"
 
 import { navbarData } from "../../constants/menu"
-import { GET_CATEGORY_BY_SLUG, GET_CATEGORY_SLUGS, GET_POSTS_BY_CATEGORY, GET_TAGS } from "../../helpers/apollo_query"
+import { GET_CATEGORY_BY_SLUG, GET_CATEGORY_SLUGS, GET_FEATURED_TAGS, GET_POSTS_BY_CATEGORY, GET_TAGS } from "../../helpers/apollo_query"
 
 type CategoryPostsProps = {
   posts: IPost[]
   category: ICategory
-  tags: ITag[]
+  featuredTags: ITag[]
 }
 
-export default function PostByCategory({ posts = [], category, tags = [] }: CategoryPostsProps): JSX.Element {
+export default function PostByCategory({ posts = [], category, featuredTags = [] }: CategoryPostsProps): JSX.Element {
   let sideTags: SideTagData[] = []
-  tags.slice(0, 5).map((tag) => {
+  featuredTags.map((tag) => {
     sideTags.push({
       icon: <img src={`${process.env.NEXT_PUBLIC_ASSET_URL}${tag.attributes.icon_svg}`}></img>,
       link: `/tags/${tag.attributes.slug}`,
@@ -110,17 +110,17 @@ export const getStaticProps: GetStaticProps<CategoryPostsProps> = async (context
   })
   const posts = res2.data.posts.data as IPost[]
 
-  // fetch tags
+  // fetch featured tags
   const res3 = await client.query({
-    query: GET_TAGS
+    query: GET_FEATURED_TAGS
   })
-  const tags = res3.data.tags.data as ITag[]
+  const featuredTags = res3.data.featuredTag.data.attributes.tags.data as ITag[]
 
   return {
     props: {
       posts,
       category,
-      tags
+      featuredTags
     }
   }
 }
