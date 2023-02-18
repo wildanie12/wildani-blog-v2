@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useContext, useState } from "react"
+import { MutableRefObject, useContext, useEffect, useRef, useState } from "react"
+import { SearchContext } from "../../providers/SearchProvider"
 import { ThemeContext } from "../../providers/ThemeProvider"
 
 export type NavbarItem = {
@@ -16,11 +17,16 @@ export type NavbarProps = {
 }
 
 export function NavbarDesktop({ items = [], className }: NavbarProps): JSX.Element {
-  const [searchQuery, setSearchQuery] = useState<string | undefined>()
-
   const { isDark, setIsDark } = useContext(ThemeContext)
+  const { setSearch } = useContext(SearchContext)
 
+  const searchEl = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>
   const router = useRouter()
+  useEffect(() => {
+    if (router.pathname == "/posts/search" && typeof router.query.q !== "undefined") {
+      searchEl.current!.value = router.query.q as string
+    }
+  }, [router.query.q])
   return (
     <div className={`flex gap-2 justify-between items-center ${className}`}>
       {items.map((item, i) => (
@@ -38,10 +44,16 @@ export function NavbarDesktop({ items = [], className }: NavbarProps): JSX.Eleme
       <div className="flex w-28 justify-start items-center group transition-all duration-200 ease-out focus-within:w-32 focus-within:shadow-lg rounded-full">
         <input
           type="text"
+          ref={searchEl}
           className="w-0 flex-grow p-2 dark:bg-transparent text-xs font-medium border border-r-0 border-gray-400 dark:text-white rounded-l-full placeholder:font-poppins placeholder:text-xs placeholder:font-medium focus:outline-none"
           placeholder="Search..."
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => e.key == "Enter" && router.push(`/posts/search?q=${searchQuery}`)}
+          onKeyDown={(e) => {
+            if (e.key != "Enter") return
+            setSearch(e.currentTarget.value)
+            if (router.pathname != "/posts/search") {
+              router.push(`/posts/search`, `/posts/search?q=${e.currentTarget.value}`)
+            }
+          }}
         />
         <div className="p-2 stroke-gray-400 rounded-r-full border-gray-400 border-l-0 border">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-4 h-4">
