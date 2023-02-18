@@ -29,7 +29,9 @@ export default function RelatedPost({ className, posts }: RelatedPostProps): JSX
                   <div className="text-xs font-medium uppercase tracking-widest">{moment(post.attributes.createdAt).startOf("days").fromNow()}</div>
                 </div>
                 <h2 className="text-wdBlue text-lg font-semibold dark:text-wdDarkSky">{post.attributes.title}</h2>
-                <p className="text-gray-500 dark:text-gray-400">{post.attributes.excerpt}</p>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {post.attributes.excerpt.length > 200 ? post.attributes.excerpt.slice(0, 200) + "..." : post.attributes.excerpt}
+                </p>
               </div>
               <div className="w-2 group-hover:w-0 group-hover:ml-0 my-2 shrink-0 ml-4 transition-all duration-200"></div>
             </div>
