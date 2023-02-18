@@ -421,3 +421,16 @@ export const GET_POST_SLUGS = gql`
     }
   }
 `
+
+export const GET_TAG_SLUGS = gql`
+  query getTagSlugs {
+    tags(sort: ["createdAt:desc"]) {
+      data {
+        id
+        attributes {
+          slug
+        }
+      }
+    }
+  }
+`
