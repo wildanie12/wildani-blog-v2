@@ -16,6 +16,16 @@ body {
   @apply dark:bg-wdDark bg-white overflow-x-clip overflow-y-auto;
 }
 
+.bar {
+  @apply dark:bg-wdYellow h-1 !important;
+}
+.bar .peg {
+  @apply dark:shadow-yellow-700 shadow-lg  !important;
+}
+.spinner-icon {
+  @apply dark:border-t-wdYellow dark:border-l-wdYellow !important;
+}
+
 .widget-title {
   @apply uppercase font-semibold text-center font-poppins text-gray-600 tracking-widest w-full block dark:text-gray-400;
 }
