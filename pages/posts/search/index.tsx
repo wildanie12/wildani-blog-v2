@@ -54,17 +54,14 @@ const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
       <Head>
         <title>Post with category - Wildani Blog</title>
         <meta name="title" content={`Post(s) with search keyword ${router.query.q} - Wildani Blog`} />
-        <meta
-          name="description"
-          content={`Found ${posts.length} post(s) with search keyword of ${router.query.q}, navigate to the website and explore all available articles.`}
-        />
+        <meta name="description" content={`Posts with search keyword of ${router.query.q}, navigate to the website and explore all available articles.`} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content={process.env.NEXT_PUBLIC_HOST + "/posts/search?q=" + router.query.q} />
         <meta property="og:title" content={`Post(s) with search keyword ${router.query.q} - Wildani Blog`} />
         <meta
           property="og:description"
-          content={`Found ${posts.length} post(s) with search keyword of ${router.query.q}, navigate to the website and explore all available articles.`}
+          content={`Posts with search keyword of ${router.query.q}, navigate to the website and explore all available articles.`}
         />
         <meta property="og:image" content={`/public/banner-blog.jpg`} />
 
@@ -73,7 +70,7 @@ const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
         <meta property="twitter:title" content={`Post(s) with search keyword ${router.query.q} - Wildani Blog`} />
         <meta
           property="twitter:description"
-          content={`Found ${posts.length} post(s) with search keyword of ${router.query.q}, navigate to the website and explore all available articles.`}
+          content={`Posts with search keyword of ${router.query.q}, navigate to the website and explore all available articles.`}
         />
         <meta property="twitter:image" content={`/public/banner-blog.jpg`} />
       </Head>
