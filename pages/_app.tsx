@@ -6,10 +6,21 @@ import { useEffect } from "react"
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import SearchProvider from "../providers/SearchProvider"
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_API_URL,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "ignore"
+    },
+    query: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all"
+    }
+  }
 })
 
 function MyApp({ Component, pageProps, router }: AppProps) {
@@ -33,7 +44,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <ThemeContextProvider>
-        <Component {...pageProps} />
+        <SearchProvider>
+          <Component {...pageProps} />
+        </SearchProvider>
       </ThemeContextProvider>
     </ApolloProvider>
   )
