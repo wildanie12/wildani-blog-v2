@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 import moment from "moment"
-import { Tag } from "../sidebar/Tags"
 
 type PostProps = {
   className?: string
@@ -17,8 +16,10 @@ export default function Post({ className = "", post }: PostProps): JSX.Element {
           src={process.env.NEXT_PUBLIC_ASSET_URL + post.attributes.banner.data.attributes.url}
           alt="featured big post banner"
           fill={true}
+          className="z-30"
           style={{ objectFit: "cover" }}
         />
+        <Image className="z-0 scale-50" loading="lazy" src="/loading.svg" fill={true} style={{ objectFit: "cover" }} alt="loading" />
       </div>
       <div className="flex items-stretch">
         <div className="w-0 group-hover:w-2 my-2 group-hover:mr-4 transition-all duration-200 bg-wdRed"></div>
