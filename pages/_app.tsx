@@ -5,6 +5,12 @@ import { useEffect } from "react"
 
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_API_URL,
+  cache: new InMemoryCache()
+})
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   useEffect(() => {
@@ -25,9 +31,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   }, [])
 
   return (
-    <ThemeContextProvider>
-      <Component {...pageProps} />
-    </ThemeContextProvider>
+    <ApolloProvider client={client}>
+      <ThemeContextProvider>
+        <Component {...pageProps} />
+      </ThemeContextProvider>
+    </ApolloProvider>
   )
 }
 
