@@ -39,6 +39,8 @@ const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
   }
 
   useEffect(() => {
+    console.log("searching for", search)
+    console.log("routering q", router.query.q)
     if (search) {
       router.push(`/posts/search?q=${search}`, undefined, { shallow: true })
       searchPosts({ variables: { query: search, page: 1, pageSize: 10 } })
