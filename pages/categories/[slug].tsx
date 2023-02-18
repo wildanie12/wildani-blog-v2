@@ -49,6 +49,14 @@ export default function PostByCategory({ posts = [], category, featuredTags = []
                 <Post post={post} key={i} />
               ))}
             </div>
+            {posts.length == 0 && (
+              <div className="col-span-1 lg:col-span-3 flex justify-center">
+                <div className="flex flex-col gap-5 p-6 rounded-3xl border-2 border-gray-400 border-opacity-25">
+                  <div className="text-5xl text-center dark:opacity-100 opacity-50">☝️😅</div>
+                  <div className="text-2xl text-gray-400 font-firaCode uppercase font-semibold tracking-widest opacity-50 text-center">No Post</div>
+                </div>
+              </div>
+            )}
             {/* <Pagination /> */}
           </div>
         </div>
@@ -69,10 +77,8 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     query: GET_CATEGORY_SLUGS
   })
   const categories = res.data.categories.data as ICategory[]
-  console.log(categories)
 
   const paths = categories.map((category) => ({ params: { slug: category.attributes.slug } }))
-  console.log("params", paths)
 
   return {
     fallback: false,
