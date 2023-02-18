@@ -142,18 +142,24 @@ export default function PostDetail({ post, parsedBody, parsedEpilogue, url, rela
         <title>{`${post.attributes.title} - Wildani Blog`}</title>
 
         <meta name="title" content={`${post.attributes.title} - Wildani Blog`} />
-        <meta name="description" content={post.attributes.excerpt} />
+        <meta name="description" content={post.attributes.excerpt.length > 200 ? post.attributes.excerpt.slice(0, 200) + "..." : post.attributes.excerpt} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
         <meta property="og:title" content={`${post.attributes.title} - Wildani Blog`} />
-        <meta property="og:description" content={post.attributes.excerpt} />
+        <meta
+          property="og:description"
+          content={post.attributes.excerpt.length > 200 ? post.attributes.excerpt.slice(0, 200) + "..." : post.attributes.excerpt}
+        />
         <meta property="og:image" content={process.env.NEXT_PUBLIC_ASSET_URL + post.attributes.banner.data.attributes.url} />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={process.env.NEXT_PUBLIC_HOST} />
         <meta property="twitter:title" content={`${post.attributes.title} - Wildani Blog`} />
-        <meta property="twitter:description" content={post.attributes.excerpt} />
+        <meta
+          property="twitter:description"
+          content={post.attributes.excerpt.length > 200 ? post.attributes.excerpt.slice(0, 200) + "..." : post.attributes.excerpt}
+        />
         <meta property="twitter:image" content={process.env.NEXT_PUBLIC_ASSET_URL + post.attributes.banner.data.attributes.url} />
       </Head>
       <div className="w-full pb-6 overflow-x-clip">
