@@ -30,6 +30,29 @@ export default function PostByCategory({ posts = [], category, featuredTags = []
     <>
       <Head>
         <title>Post with category {category.attributes.title} - Wildani Blog</title>
+        <meta name="title" content={`Post(s) with category ${category.attributes.title} - Wildani Blog`} />
+        <meta
+          name="description"
+          content={`Found ${posts.length} post(s) with with category ${category.attributes.title}, navigate to the website and explore all available articles.`}
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_HOST + "/tags/" + category.attributes.slug} />
+        <meta property="og:title" content={`Post(s) with category ${category.attributes.title} - Wildani Blog`} />
+        <meta
+          property="og:description"
+          content={`Found ${posts.length} post(s) with with category ${category.attributes.title}, navigate to the website and explore all available articles.`}
+        />
+        <meta property="og:image" content={`/public/banner-blog.jpg`} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={process.env.NEXT_PUBLIC_HOST + "/tags/" + category.attributes.slug} />
+        <meta property="twitter:title" content={`Post(s) with category ${category.attributes.title} - Wildani Blog`} />
+        <meta
+          property="twitter:description"
+          content={`Found ${posts.length} post(s) with with category ${category.attributes.title}, navigate to the website and explore all available articles.`}
+        />
+        <meta property="twitter:image" content={`/public/banner-blog.jpg`} />
       </Head>
       <div className="w-full pb-6 overflow-x-clip">
         <Header navbarData={navbarData} />

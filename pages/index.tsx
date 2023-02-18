@@ -23,6 +23,13 @@ type HomeProps = {
   featuredTags: ITag[]
 }
 
+const metadata = {
+  title: "Wildani Blog",
+  description:
+    "Membahas semuanya tentang web engineering dari level intermediate ke advanced, merupakan blog pribadi berisi catatan-catatan dari penulis tentang personal journey ataupun pengetahuan yang berkaitan dengan dunia teknologi informasi",
+  banner: "/banner-blog.jpg"
+}
+
 const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = [], featuredTags = [] }) => {
   const { isDark } = useContext(ThemeContext)
 
@@ -38,7 +45,22 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
   return (
     <>
       <Head>
-        <title>Homepage - Wildani Blog</title>
+        <title>Wildani Blog - Homepage</title>
+
+        <meta name="title" content="Wildani Blog - Homepage" />
+        <meta name="description" content={metadata.description} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_HOST} />
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+        <meta property="og:image" content={metadata.banner} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={process.env.NEXT_PUBLIC_HOST} />
+        <meta property="twitter:title" content={metadata.title} />
+        <meta property="twitter:description" content={metadata.description} />
+        <meta property="twitter:image" content={metadata.banner} />
       </Head>
       <div className="w-full overflow-x-clip">
         <Header navbarData={navbarData} />
