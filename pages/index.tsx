@@ -70,9 +70,16 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
           <div className="relative container p-4 lg:p-0 mx-auto flex flex-col items-center justify-start">
             <div
               className={`${
-                isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
+                isDark ? "opacity-100 transition-opacity duration-[3s] delay-500" : "opacity-0"
               } lg:block w-[64px] lg:w-[132px] top-[calc(50%-48px)] lg:top-1/4 left-0 -z-10 lg:-translate-x-1/2 rotate-45 aspect-square bg-wdYellow absolute`}
             ></div>
+            <div
+              className={`${
+                isDark ? "opacity-30 transition-opacity duration-[4s] delay-100" : "opacity-0"
+              } lg:block w-[64px] lg:w-[183px] top-[calc(50%-48px)] lg:top-[calc(25%+72px)] -left-[72px] -z-10 lg:-translate-x-1/2 aspect-square absolute`}
+            >
+              <Image src="/404-decoration.svg" alt="404-decoration" fill={true}></Image>
+            </div>
             <div
               className={`${
                 isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
@@ -80,14 +87,22 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
             ></div>
             <div
               className={`${
-                isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
+                isDark ? "opacity-100 transition-opacity duration-[3s] delay-500" : "opacity-0"
               } hidden lg:block w-[132px] h-[16px] bottom-0 left-0 -z-10 -translate-x-1/2 -rotate-45 bg-wdYellow absolute`}
             ></div>
             <div
               className={`${
-                isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
+                isDark ? "opacity-100 transition-opacity duration-[3s] delay-1000" : "opacity-0"
               } lg:block w-[240px] h-[36px] -bottom-[16px] -left-[56px] -z-10 -translate-x-1/2 -rotate-45 bg-wdSky absolute`}
             ></div>
+            <div
+              className={`${
+                isDark ? "opacity-30 transition-opacity duration-[3s] delay-500" : "opacity-0"
+              } lg:block w-[230px] h-[212px] -bottom-[40px] -left-[80px] -z-10 -translate-x-1/2 absolute`}
+            >
+              <Image src="/docker-decoration.svg" alt="docker-decoration" fill={true}></Image>
+            </div>
+
             <div
               className={`${
                 isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
@@ -102,8 +117,28 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
             <div
               className={`${
                 isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
+              } lg:block w-[200px] h-[150px] top-3/4 lg:top-[calc(50%-48px)] -translate-y-full -right-[172px] -z-10 absolute`}
+            >
+              <Image src="/rest-decoration.svg" alt="docker-decoration" fill={true}></Image>
+            </div>
+
+            <div
+              className={`${
+                isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
               } lg:block w-[56px] aspect-square top-[calc(75%+28px)] lg:top-[calc(50%+28px)] -right-[8px] -z-10 -rotate-45 bg-wdRed absolute`}
             ></div>
+            <div
+              className={`${
+                isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
+              } lg:block w-[56px] aspect-square top-[calc(75%+28px)] lg:top-[calc(50%+42px)] -right-[22px] -z-10 -rotate-45 bg-wdRed absolute`}
+            ></div>
+            <div
+              className={`${
+                isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
+              } lg:block w-[180px] aspect-square top-[calc(75%+28px)] lg:top-[calc(50%-104px)] -right-[182px] -z-10 -rotate-4 absolute`}
+            >
+              <Image src="/grpc-decoration.svg" alt="docker-decoration" fill={true}></Image>
+            </div>
             <div
               className={`${
                 isDark ? "opacity-100 transition-opacity duration-[3s]" : "opacity-0"
