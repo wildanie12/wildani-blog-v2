@@ -100,7 +100,7 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
                 isDark ? "opacity-30 transition-opacity duration-[3s] delay-500" : "opacity-0"
               } lg:block w-[230px] h-[212px] -bottom-[40px] -left-[80px] -z-10 -translate-x-1/2 absolute`}
             >
-              <Image src="/docker-decoration.svg" alt="docker-decoration" fill={true}></Image>
+              <Image src="/swarm-decoration.svg" alt="docker-decoration" fill={true}></Image>
             </div>
 
             <div
