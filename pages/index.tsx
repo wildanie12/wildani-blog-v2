@@ -10,10 +10,11 @@ import { navbarData } from "../constants/menu"
 import Footer from "../components/footer"
 import SideTag, { SideTagData } from "../components/sidebar/SideTag"
 import Categories from "../components/sidebar/Categories"
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { GET_CATEGORIES, GET_FEATURED_POSTS, GET_FEATURED_TAGS, GET_LATEST_POST, GET_TAGS } from "../helpers/apollo_query"
 import Head from "next/head"
 import Image from "next/image"
+import { posts } from "../data/posts"
+import { tags } from "../data/tags"
+import { categories } from "../data/categories"
 
 type HomeProps = {
   posts: IPost[]
@@ -185,50 +186,55 @@ const Home: NextPage<HomeProps> = ({ posts, tags, categories, featuredPosts = []
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const client = new ApolloClient({
-    uri: process.env.CMS_API_URL,
-    cache: new InMemoryCache()
-  })
+  // const client = new ApolloClient({
+  //   uri: process.env.CMS_API_URL,
+  //   cache: new InMemoryCache()
+  // })
 
-  // fetch latest posts
-  const res = await client.query({
-    query: GET_LATEST_POST,
-    variables: {
-      page: 1,
-      pageSize: 10
-    }
-  })
-  const posts = res.data.posts.data as IPost[]
+  // // fetch latest posts
+  // const res = await client.query({
+  //   query: GET_LATEST_POST,
+  //   variables: {
+  //     page: 1,
+  //     pageSize: 10
+  //   }
+  // })
+  // const posts = res.data.posts.data as IPost[]
+  const dataPosts: IPost[] = posts
 
-  // fetch tags
-  const res2 = await client.query({
-    query: GET_TAGS
-  })
-  const tags = res2.data.tags.data as ITag[]
+  // // fetch tags
+  // const res2 = await client.query({
+  //   query: GET_TAGS
+  // })
+  // const tags = res2.data.tags.data as ITag[]
+  const dataTags: ITag[] = Object.keys(tags).map((key) => tags[key])
 
-  // fetch categories
-  const res3 = await client.query({
-    query: GET_CATEGORIES
-  })
-  const categories = res3.data.categories.data as ICategory[]
+  // // fetch categories
+  // const res3 = await client.query({
+  //   query: GET_CATEGORIES
+  // })
+  // const categories = res3.data.categories.data as ICategory[]
+  const dataCategories: ICategory[] = Object.keys(categories).map((key) => categories[key])
 
-  // fetch featured posts
-  const res4 = await client.query({
-    query: GET_FEATURED_POSTS
-  })
-  const featuredPosts = res4.data.featuredPost.data.attributes.posts.data as IPost[]
+  // // fetch featured posts
+  // const res4 = await client.query({
+  //   query: GET_FEATURED_POSTS
+  // })
+  // const featuredPosts = res4.data.featuredPost.data.attributes.posts.data as IPost[]
+  const featuredPosts: IPost[] = [posts[0], posts[1], posts[2]]
 
-  // fetch featured tags
-  const res5 = await client.query({
-    query: GET_FEATURED_TAGS
-  })
-  const featuredTags = res5.data.featuredTag.data.attributes.tags.data as ITag[]
+  // // fetch featured tags
+  // const res5 = await client.query({
+  //   query: GET_FEATURED_TAGS
+  // })
+  // const featuredTags = res5.data.featuredTag.data.attributes.tags.data as ITag[]
+  const featuredTags: ITag[] = Object.keys(tags).map((key) => tags[key])
 
   return {
     props: {
-      posts,
-      tags,
-      categories,
+      posts: dataPosts,
+      tags: dataTags,
+      categories: dataCategories,
       featuredPosts,
       featuredTags
     }
