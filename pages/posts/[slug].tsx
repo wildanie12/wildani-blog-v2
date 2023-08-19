@@ -183,14 +183,14 @@ export default function PostDetail({ post, parsedBody, parsedEpilogue, url, rela
           </svg>
         </button>
 
-        <div className="container mb-8 p-6 lg:p-0">
+        <div className="container mb-8 px-6 pt-0 lg:p-6 lg:p-0">
           <div className="mb-8 flex justify-center gap-4 lg:px-0 lg:gap-8 w-full flex-col lg:flex-row">
             <div className="xl:w-1/4 lg:w-1/6 flex flex-col gap-8 shrink-0 self-start sticky top-8">
               <TableOfContent tableOfContents={post.attributes.table_of_contents} />
               <Tags tags={post.attributes.tags.data} />
             </div>
             <div className="flex-grow lg:max-w-[66ch] 2xl:max-w-[84ch] shrink">
-              <div className="w-full aspect-video relative overflow-hidden mb-2 rounded-t-xl">
+              <div className="w-full aspect-video relative overflow-hidden rounded-t-xl">
                 <Image
                   alt="banner"
                   src={process.env.NEXT_PUBLIC_ASSET_URL + post.attributes.banner.data.attributes.url}
@@ -198,14 +198,14 @@ export default function PostDetail({ post, parsedBody, parsedEpilogue, url, rela
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              <div className="flex items-center justify-start gap-2 lg:gap-4 mb-1">
+              <div className="flex items-center justify-center gap-2 lg:gap-4 mt-4 mb-2">
                 <div className="text-xs font-bold uppercase text-gray-400 tracking-widest">{moment(post.attributes.createdAt).format("HH:mm:ss")}</div>
                 <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
                 <div className="text-xs font-semibold uppercase text-gray-400 tracking-widest">{post.attributes.category.data.attributes.title}</div>
                 <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
                 <div className="text-xs font-semibold uppercase text-gray-400 tracking-widest">M. Badar Wildani</div>
               </div>
-              <h1 className="text-3xl mb-3 dark:text-wdSky text-wdBlue font-bold">{post.attributes.title}</h1>
+              <h1 className="text-3xl mb-3 dark:text-wdSky text-center text-wdBlue font-bold">{post.attributes.title}</h1>
               <div
                 className="w-full font-openSans mb-4 prose prose-sm dark:prose-invert lg:prose-base 2xl:prose-lg"
                 dangerouslySetInnerHTML={{ __html: parsedBody }}
