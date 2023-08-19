@@ -9,6 +9,8 @@ import { Tag } from "../../components/sidebar/Tags"
 
 import { navbarData } from "../../constants/menu"
 import { GET_FEATURED_TAGS, GET_POSTS_BY_TAG, GET_TAGS_BY_SLUG, GET_TAG_SLUGS } from "../../helpers/apollo_query"
+import { tags } from "../../data/tags"
+import { posts } from "../../data/posts"
 
 type TagPostsProps = {
   posts: IPost[]
@@ -95,14 +97,15 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     uri: process.env.CMS_API_URL
   })
 
-  // fetch categories
-  const res = await client.query({
-    query: GET_TAG_SLUGS
-  })
-  const tags = res.data.tags.data as ITag[]
-  if (!tags) return { paths: [], fallback: false }
+  // // fetch categories
+  // const res = await client.query({
+  //   query: GET_TAG_SLUGS
+  // })
+  // const tags = res.data.tags.data as ITag[]
+  // if (!tags) return { paths: [], fallback: false }
 
-  const paths = tags.map((tag) => ({ params: { slug: tag.attributes.slug } }))
+  const dataTags = Object.keys(tags).map((key) => tags[key])
+  const paths = dataTags.map((tag) => ({ params: { slug: tag.attributes.slug } }))
   return {
     fallback: false,
     paths
@@ -110,48 +113,58 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 }
 
 export const getStaticProps: GetStaticProps<TagPostsProps> = async (context) => {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: process.env.CMS_API_URL
-  })
+  // const client = new ApolloClient({
+  //   cache: new InMemoryCache(),
+  //   uri: process.env.CMS_API_URL
+  // })
 
-  // fetch category by slug
-  const res = await client.query({
-    query: GET_TAGS_BY_SLUG,
-    variables: {
-      slug: context.params!.slug
-    }
-  })
-  if (!res.data.tags.data) {
-    return { notFound: true }
-  }
-  const tags = res.data.tags.data as ITag[]
-  if (tags.length == 0) {
+  // // fetch category by slug
+  // const res = await client.query({
+  //   query: GET_TAGS_BY_SLUG,
+  //   variables: {
+  //     slug: context.params!.slug
+  //   }
+  // })
+  // if (!res.data.tags.data) {
+  //   return { notFound: true }
+  // }
+  // const tags = res.data.tags.data as ITag[]
+  const dataTags = Object.keys(tags)
+    .map((key) => tags[key])
+    .filter((tag) => tag.attributes.slug == context.params!.slug)
+  if (dataTags.length == 0) {
     return {
       notFound: true
     }
   }
-  const tag = tags[0]
+  const dataTag = dataTags[0]
 
-  // fetch posts by category
-  const res2 = await client.query({
-    query: GET_POSTS_BY_TAG,
-    variables: {
-      slug: context.params!.slug
-    }
+  // // fetch posts by category
+  // const res2 = await client.query({
+  //   query: GET_POSTS_BY_TAG,
+  //   variables: {
+  //     slug: context.params!.slug
+  //   }
+  // })
+  // const posts = res2.data.posts.data as IPost[]
+  const dataPosts: IPost[] = posts.filter((post) => {
+    const postTags = post.attributes.tags.data
+    const validTags = postTags.filter((tag) => tag.id == dataTag.id)
+    if (validTags.length > 0) return true
+    return false
   })
-  const posts = res2.data.posts.data as IPost[]
 
-  // fetch featured tags
-  const res3 = await client.query({
-    query: GET_FEATURED_TAGS
-  })
-  const featuredTags = res3.data.featuredTag.data.attributes.tags.data as ITag[]
+  // // fetch featured tags
+  // const res3 = await client.query({
+  //   query: GET_FEATURED_TAGS
+  // })
+  // const featuredTags = res3.data.featuredTag.data.attributes.tags.data as ITag[]
+  const featuredTags: ITag[] = Object.keys(tags).map((key) => tags[key])
 
   return {
     props: {
-      posts,
-      tag,
+      posts: dataPosts,
+      tag: dataTag,
       featuredTags
     }
   }
