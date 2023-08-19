@@ -35,7 +35,7 @@ const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
 
   const [searchPosts, { loading, error, data }] = useLazyQuery(SEARCH_POSTS)
   if (typeof data?.posts?.data !== "undefined") {
-    posts = data.posts.data as IPost[]
+    posts = data.posts.data
   }
 
   useEffect(() => {
@@ -120,16 +120,17 @@ const Search: NextPage<SearchProps> = ({ featuredTags = [], posts = [] }) => {
 }
 
 export const getStaticProps: GetStaticProps<SearchProps> = async (context) => {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: process.env.CMS_API_URL
-  })
+  // const client = new ApolloClient({
+  //   cache: new InMemoryCache(),
+  //   uri: process.env.CMS_API_URL
+  // })
 
-  // fetch featured tags
-  const res = await client.query({
-    query: GET_FEATURED_TAGS
-  })
-  const featuredTags = res.data.featuredTag.data.attributes.tags.data as ITag[]
+  // // fetch featured tags
+  // const res = await client.query({
+  //   query: GET_FEATURED_TAGS
+  // })
+  // const featuredTags = res.data.featuredTag.data.attributes.tags.data as ITag[]
+  const featuredTags: ITag[] = []
 
   return {
     props: {
