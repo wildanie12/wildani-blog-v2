@@ -9,6 +9,9 @@ import { Tag } from "../../components/sidebar/Tags"
 
 import { navbarData } from "../../constants/menu"
 import { GET_CATEGORY_BY_SLUG, GET_CATEGORY_SLUGS, GET_FEATURED_TAGS, GET_POSTS_BY_CATEGORY, GET_TAGS } from "../../helpers/apollo_query"
+import { categories } from "../../data/categories"
+import { posts } from "../../data/posts"
+import { tags } from "../../data/tags"
 
 type CategoryPostsProps = {
   posts: IPost[]
@@ -90,18 +93,20 @@ export default function PostByCategory({ posts = [], category, featuredTags = []
 }
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: process.env.CMS_API_URL
-  })
+  // const client = new ApolloClient({
+  //   cache: new InMemoryCache(),
+  //   uri: process.env.CMS_API_URL
+  // })
 
-  // fetch categories
-  const res = await client.query({
-    query: GET_CATEGORY_SLUGS
-  })
-  const categories = res.data.categories.data as ICategory[]
+  // // fetch categories
+  // const res = await client.query({
+  //   query: GET_CATEGORY_SLUGS
+  // })
+  // const categories = res.data.categories.data as ICategory[]
 
-  const paths = categories.map((category) => ({ params: { slug: category.attributes.slug } }))
+  // const paths = categories.map((category) => ({ params: { slug: category.attributes.slug } }))
+  const dataCategories = Object.keys(categories).map((key) => categories[key])
+  const paths = dataCategories.map((category) => ({ params: { slug: category.attributes.slug } }))
 
   return {
     fallback: false,
@@ -115,40 +120,44 @@ export const getStaticProps: GetStaticProps<CategoryPostsProps> = async (context
     uri: process.env.CMS_API_URL
   })
 
-  // fetch category by slug
-  const res = await client.query({
-    query: GET_CATEGORY_BY_SLUG,
-    variables: {
-      slug: context.params!.slug
-    }
-  })
-  const categories = res.data.categories.data as ICategory[]
-  if (categories.length == 0) {
+  // // fetch category by slug
+  // const res = await client.query({
+  //   query: GET_CATEGORY_BY_SLUG,
+  //   variables: {
+  //     slug: context.params!.slug
+  //   }
+  // })
+  // const categories = res.data.categories.data as ICategory[]
+  const dataCategories: ICategory[] = Object.keys(categories)
+    .map((key) => categories[key])
+    .filter((category) => category.attributes.slug == context.params!.slug)
+  if (dataCategories.length == 0) {
     return {
       notFound: true
     }
   }
-  const category = categories[0]
+  const dataCategory = dataCategories[0]
 
-  // fetch posts by category
-  const res2 = await client.query({
-    query: GET_POSTS_BY_CATEGORY,
-    variables: {
-      slug: context.params!.slug
-    }
-  })
-  const posts = res2.data.posts.data as IPost[]
+  // // fetch posts by category
+  // const res2 = await client.query({
+  //   query: GET_POSTS_BY_CATEGORY,
+  //   variables: {
+  //     slug: context.params!.slug
+  //   }
+  // })
+  // const posts = res2.data.posts.data as IPost[]
+  const dataPosts: IPost[] = posts.filter((post) => post.attributes.category.data.id == dataCategory.id)
 
-  // fetch featured tags
-  const res3 = await client.query({
-    query: GET_FEATURED_TAGS
-  })
-  const featuredTags = res3.data.featuredTag.data.attributes.tags.data as ITag[]
+  // // fetch featured tags
+  // const res3 = await client.query({
+  // query: GET_FEATURED_TAGS
+  // })
+  const featuredTags: ITag[] = Object.keys(tags).map((key) => tags[key])
 
   return {
     props: {
-      posts,
-      category,
+      posts: dataPosts,
+      category: dataCategory,
       featuredTags
     }
   }
