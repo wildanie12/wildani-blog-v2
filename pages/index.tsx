@@ -221,7 +221,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   //   query: GET_FEATURED_POSTS
   // })
   // const featuredPosts = res4.data.featuredPost.data.attributes.posts.data as IPost[]
-  const featuredPosts: IPost[] = [posts[0], posts[1], posts[2]]
+  const featuredPosts: IPost[] = [posts[2], posts[0], posts[1]]
 
   // // fetch featured tags
   // const res5 = await client.query({
