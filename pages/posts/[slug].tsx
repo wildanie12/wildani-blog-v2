@@ -15,6 +15,7 @@ import { GET_POSTS_BY_CATEGORY, GET_POST_SLUGS, GET_SINGLE_POST } from "../../he
 import moment from "moment"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Head from "next/head"
+import { posts } from "../../data/posts"
 
 const markdownItSrc = import("markdown-it")
 const markdownItAnchorSrc = import("markdown-it-anchor")
@@ -223,18 +224,18 @@ export default function PostDetail({ post, parsedBody, parsedEpilogue, url, rela
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // define apollo graphql client
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: process.env.CMS_API_URL
-  })
+  // // define apollo graphql client
+  // const client = new ApolloClient({
+  //   cache: new InMemoryCache(),
+  //   uri: process.env.CMS_API_URL
+  // })
 
-  // get post slugs
-  const res = await client.query({
-    query: GET_POST_SLUGS
-  })
+  // // get post slugs
+  // const res = await client.query({
+  //   query: GET_POST_SLUGS
+  // })
 
-  const posts = res.data.posts.data as IPost[]
+  // const posts = res.data.posts.data as IPost[]
   const paths = posts.map((post) => ({ params: { slug: post.attributes.slug } }))
 
   return {
@@ -244,28 +245,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<PostDetailProps> = async (context) => {
-  // fetch post by slug
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: process.env.CMS_API_URL
-  })
-  const res = await client.query({
-    query: GET_SINGLE_POST,
-    variables: {
-      slug: context.params!.slug
-    }
-  })
-  const posts = res.data.posts.data as IPost[]
+  // // fetch post by slug
+  // const client = new ApolloClient({
+  //   cache: new InMemoryCache(),
+  //   uri: process.env.CMS_API_URL
+  // })
+  // const res = await client.query({
+  //   query: GET_SINGLE_POST,
+  //   variables: {
+  //     slug: context.params!.slug
+  //   }
+  // })
+  // const posts = res.data.posts.data as IPost[]
+
+  const dataPosts = posts.filter((post) => post.attributes.slug == context.params!.slug) as IPost[]
   if (posts.length == 0) {
     return {
       notFound: true
     }
   }
-  const post = posts[0]
+  const dataPost = dataPosts[0]
 
   // manipulate image source
   const imgRegex = /!\[(.+)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/
-  const formatted = post.attributes.body.replace(imgRegex, `![$1](${process.env.NEXT_PUBLIC_ASSET_URL}$2)`)
+  const formatted = dataPost.attributes.body.replace(imgRegex, `![$1](${process.env.NEXT_PUBLIC_ASSET_URL}$2)`)
 
   // syntax highlighter
   const shiki = await shikiSrc
@@ -284,23 +287,24 @@ export const getStaticProps: GetStaticProps<PostDetailProps> = async (context) =
     }
   }).use(mdAnchor)
   const parsed = md.render(formatted)
-  const parsedEpilogue = md.render(post.attributes.epilogue)
+  const parsedEpilogue = md.render(dataPost.attributes.epilogue)
 
-  // fetch related post by category
-  const res2 = await client.query({
-    query: GET_POSTS_BY_CATEGORY,
-    variables: {
-      slug: post.attributes.category.data.attributes.slug
-    }
-  })
+  // // fetch related post by category
+  // const res2 = await client.query({
+  //   query: GET_POSTS_BY_CATEGORY,
+  //   variables: {
+  //     slug: post.attributes.category.data.attributes.slug
+  //   }
+  // })
+  const relatedPosts = posts.filter((post) => post.attributes.category.data.id == dataPost.attributes.category.data.id)
 
   return {
     props: {
-      post: post,
+      post: dataPost,
       parsedBody: parsed,
       parsedEpilogue: parsedEpilogue,
-      url: process.env.NEXT_PUBLIC_HOST + "/posts/" + post.attributes.slug,
-      relatedPosts: res2.data.posts.data as IPost[]
+      url: process.env.NEXT_PUBLIC_HOST + "/posts/" + dataPost.attributes.slug,
+      relatedPosts
     }
   }
 }
