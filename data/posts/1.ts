@@ -2,19 +2,55 @@ import { categories } from "../categories"
 import { tags } from "../tags"
 import { postImages } from "../uploads"
 
-const title: string = `Konsep Asynchronous di node.js`
-const slug: string = `konsep-asynchronous-pada-node-js`
-const seoDescription: string = `cupiditate illo ab blanditiis aut officia quasi aliquid alias asperiores in fuga modi fugit architecto mollitia`
+const title: string = `Konsep Asynchronous di javascript / node.js`
+const slug: string = `konsep-asynchronous-di-javascript-nodejs`
+const seoDescription: string = `Kita akan melihat berbagai implementasi secara detail tentang asynchronous javascript dan mengapa kita menggunakannya`
 const category: { data: ICategory } = { data: categories["back-end"] }
 const banner: { data: IUpload } = { data: postImages["1-banner.jpg"] }
 const body: string = `
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit purus, interdum ac nisi iaculis, sollicitudin imperdiet purus. Nullam non turpis dolor. Sed lectus lectus, malesuada os.Getenv() nec enim sed, sagittis molestie tortor. Proin consectetur dolor faucibus, dictum eros ac, ultrices quam. Ut quis sapien vel ante rhoncus sagittis. Aliquam ut leo aliquet, dictum dui id, bibendum justo. In et commodo lacus. Aliquam bibendum, felis quis scelerisque commodo, enim ex feugiat ex, eu fermentum libero lacus eget lacus.
+  Konsep concurrent sudah lama sekali diterapkan dalam bahasa pemrograman, sebuah konsep dimana suatu eksekusi kode tidak harus _blocking_ mengakibatkan eksekusi kode lainnya menjadi terhambat dan harus menunggu eksekusi kode lainnya selesai terlebih dahulu. 
+  
+  Terlebih lagi dengan trend sekarang ini yang mengedepankan jumlah core / thread daripada meningkatkan power di satu core, konsep asynchronous dan paralallel programming sudah menjadi hal yang lumrah untuk diketahui dan diterapkan.
+  
+  ## Yang dapat digunakan di JS
+
+  Di Javascript sendiri, penerapan asynchronous sudah diterapkan sejak lama. Namun butuh beberapa iterasi pembaruan pengembangan sehingga fitur ini dapat diterapkan dengan praktis oleh developer. Berawal dari penggunaan _callback_ yang hampir disediakan pada setiap function di javascript. 
+
+
+  ### Callback
+  \`\`\`js
+  BukuModel.save(function(err) {
+    if (err) {
+      console.error(err)
+      return
+    }
+    // action setelah callback
+  })
+  // action yang lain
+  \`\`\`
+  kode diatas adalah implementasi dari sebuah action yang dapat kita eksekusi **hanya** ketika proses menyimpan data buku sudah selesai. **Selagi** data buku itu disimpan, kita bisa melakukan action yang lain.  
+
+  callback ini sudah lama digunakan digunakan para developer dan tentunya callback ini masih jauh dari kata sempurna ketika para developer menuntut penggunaan yang praktis. Ketika kita akan melakukan banyak hal yang berurutan terjadilah sesuatu yang disebut dengan **_"callback hell"_**. Contohnya ketika kita ingin kita menyimpan data buku -> simpan data transaksi -> data struk -> publish notifikasi, dan harus dilakukan secara berurutan, kode bakal seperti berikut ini
+  \`\`\`js
+  BukuModel.save(function(err) {
+    TransaksiModel.save(function(err) {
+      Struk.save(function(err) {
+        Notifier.publish(function(err) {
+          // 
+        })
+      })
+    })
+  })
+  \`\`\`
+  
+  ### Async Await
+  Di versi standar javascript ECMAScript 2017, Async Await diperkenalkan untuk mengatasi masalah _callback hell_, 
 `.trim()
 const epilogue: string = `
     qui labore officiis laboriosam distinctio dolorum, odio sapiente?
 `.trim()
 const excerpt: string = `
-    cupiditate illo ab blanditiis aut officia quasi aliquid alias asperiores in fuga modi fugit architecto mollitia
+  Kita akan melihat berbagai implementasi secara detail tentang asynchronous javascript dan mengapa kita menggunakannya
 `
 
 const dataTags: { data: ITag[] } = { data: [tags["typescript"]] }
