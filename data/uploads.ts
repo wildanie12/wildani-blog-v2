@@ -34,6 +34,13 @@ export const postImages: { [key: string]: IUpload } = {
     id: 1,
     attributes: {
       name: "chart-js.jpg",
+      url: "/sample/posts/1/banner.jpg"
+    }
+  },
+  "sample-banner.jpg": {
+    id: 1,
+    attributes: {
+      name: "chart-js.jpg",
       url: "/sample/posts/1/Cover 2.png"
     }
   }
