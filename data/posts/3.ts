@@ -2,7 +2,7 @@ import { categories } from "../categories"
 import { tags } from "../tags"
 import { postImages } from "../uploads"
 
-const title: string = `Konsep Asynchssronous di javascript node.js`
+const title: string = `Apakah Lorem Ipsum itu?`
 const slug: string = `konsep-asynchssronous-pada-node-js`
 const seoDescription: string = `
   cupiditate illo ab blanditiis aut officia quasi aliquid alias asperiores in fuga modi fugit architecto mollitia`
