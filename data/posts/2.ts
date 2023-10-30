@@ -48,9 +48,7 @@ Sedikit saran dari saya buat kamu yang sedang belajar untuk berkarir sebagai sof
 const epilogue: string = `
     Lebih bijaklah dalam memiliki ilmu. Jika tidak, itu yang akan menyesatkanmu.
 `.trim()
-const excerpt: string = `
-    cupiditate illo ab blanditiis aut officia quasi aliquid alias asperiores in fuga modi fugit architecto mollitia
-`
+const excerpt: string = `Seutas cerita tentang proses belajar saya dan apa pelajaran hidup yang bisa di petik. Di artikel ini, kamu akan menelusuri bagaimana proses dari awal saya belajar dan bagaimana dunning kruger effect dapat menganggu proses belajar itu.`
 
 const dataTags: { data: ITag[] } = { data: [tags["personal"], tags["dunningKruger"], tags["motivasi"], tags["cerita"]] }
 const tableOfContents: IPostTableOfContent[] = [
