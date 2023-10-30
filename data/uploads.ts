@@ -43,5 +43,12 @@ export const postImages: { [key: string]: IUpload } = {
       name: "chart-js.jpg",
       url: "/sample/posts/1/Cover 2.png"
     }
+  },
+  "2-dunning-kruger": {
+    id: 1,
+    attributes: {
+      name: "chart-js.jpg",
+      url: "/sample/posts/2/dunning-kruger.webp"
+    }
   }
 }

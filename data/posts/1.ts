@@ -11,6 +11,8 @@ const body: string = `
   Konsep concurrent sudah lama sekali diterapkan dalam bahasa pemrograman, sebuah konsep dimana suatu eksekusi kode tidak harus _blocking_ mengakibatkan eksekusi kode lainnya menjadi terhambat dan harus menunggu eksekusi kode lainnya selesai terlebih dahulu. 
   
   Terlebih lagi dengan trend sekarang ini yang mengedepankan jumlah core / thread daripada meningkatkan power di satu core, konsep asynchronous dan paralallel programming sudah menjadi hal yang lumrah untuk diketahui dan diterapkan.
+
+  ## Struktur 
   
   ## Yang dapat digunakan di JS
 

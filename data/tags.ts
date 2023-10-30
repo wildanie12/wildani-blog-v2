@@ -9,7 +9,7 @@ export const tags: { [key: string]: ITag } = {
     }
   },
   rabbitmq: {
-    id: 1,
+    id: 2,
     attributes: {
       name: "rabbitmq",
       slug: "rabbitmq",
@@ -18,7 +18,7 @@ export const tags: { [key: string]: ITag } = {
     }
   },
   docker: {
-    id: 1,
+    id: 3,
     attributes: {
       name: "docker",
       slug: "docker",
@@ -27,7 +27,7 @@ export const tags: { [key: string]: ITag } = {
     }
   },
   mongodb: {
-    id: 1,
+    id: 4,
     attributes: {
       name: "mongodb",
       slug: "mongodb",
@@ -36,7 +36,7 @@ export const tags: { [key: string]: ITag } = {
     }
   },
   golang: {
-    id: 1,
+    id: 51,
     attributes: {
       name: "golang",
       slug: "golang",
@@ -45,12 +45,44 @@ export const tags: { [key: string]: ITag } = {
     }
   },
   websocket: {
-    id: 1,
+    id: 6,
     attributes: {
       name: "websocket",
       slug: "websocket",
       description: "websocket topics",
       icon_svg: "/sample/tags/websocket.svg"
+    }
+  },
+  personal: {
+    id: 7,
+    attributes: {
+      name: "Personal",
+      slug: "personal",
+      description: "personal topics"
+    }
+  },
+  dunningKruger: {
+    id: 1,
+    attributes: {
+      name: "Dunning Kruger",
+      slug: "dunning-kruger",
+      description: "Dunning Kruger topics"
+    }
+  },
+  motivasi: {
+    id: 1,
+    attributes: {
+      name: "Motivasi",
+      slug: "motivasi",
+      description: "Motivasi topics"
+    }
+  },
+  cerita: {
+    id: 1,
+    attributes: {
+      name: "Cerita",
+      slug: "cerita",
+      description: "cerita topics"
     }
   }
 }

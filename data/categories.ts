@@ -44,5 +44,16 @@ export const categories: { [key: string]: ICategory } = {
       },
       body: "backend"
     }
+  },
+  personal: {
+    id: 2,
+    attributes: {
+      slug: "personal",
+      title: "personal",
+      banner: {
+        data: categoryImages["frontend.jpg"]
+      },
+      body: "personal"
+    }
   }
 }
