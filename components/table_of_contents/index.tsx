@@ -26,9 +26,9 @@ export default function TableOfContent({ className, tableOfContents }: TableOfCo
                   <li key={j} className="mb-2">
                     <Link href={list.url} className="inline-flex gap-3 items-center">
                       <div className="hover:text-gray-500 dark:hover:text-gray-300">{list.title}</div>
-                      {tableOfContent.read_time && (
+                      {list.read_time && (
                         <div className="bg-wdRed bg-opacity-10 text-wdRed text-[10px] whitespace-nowrap leading-none px-1 py-[2px] rounded-md font-semibold">
-                          {tableOfContent.read_time} min
+                          {list.read_time} min
                         </div>
                       )}
                     </Link>
